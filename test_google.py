@@ -32,9 +32,7 @@ class TestGoogle():
     dropdown = self.driver.find_element(By.ID, "quantity")
     dropdown.find_element(By.XPATH, "//option[. = '3']").click()
     #  | click | css=#quantity > option:nth-child(3) |
-    n = random.randint(0, 5)
-    if n == 0:
-      n = 10
+    n = random.randint(1, 6)
     self.driver.find_element(By.CSS_SELECTOR, "#quantity > option:nth-child({})".format(n)).click()
     #  | click | css=.btn |
     self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
