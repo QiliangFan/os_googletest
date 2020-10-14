@@ -70,7 +70,7 @@ class TestGoogle():
     #  | setWindowSize | 1918x823 |
     self.driver.set_window_size(1918, 823)
 
-    self.make_order(1)
+    self.make_order()
 
 
 
