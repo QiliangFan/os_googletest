@@ -19,33 +19,54 @@ class TestGoogle():
   
   def teardown_method(self, method=None):
     self.driver.quit()
-  
-  def test_google(self):
-    # Test name: google
-    # Step # | name | target | value
-    # 1 | open | http://localhost:8080/ | 
-    self.driver.get("http://localhost:8080/")
-    # 2 | setWindowSize | 1918x823 | 
-    self.driver.set_window_size(1918, 823)
-    # 3 | click | css=.col-md-4:nth-child(4) .card-hover |
+
+  def make_order(self, times):
+    #  | click | css=.col-md-4:nth-child(4) .card-hover |
     # total number: 9
     n = random.randint(1, 9)
     self.driver.find_element(By.CSS_SELECTOR, ".col-md-4:nth-child({}) .card-hover".format(n)).click()
-    # 4 | click | id=quantity | 
+    #  | click | id=quantity |
     self.driver.find_element(By.ID, "quantity").click()
-    # 5 | select | id=quantity | label=3
+    #  | select | id=quantity | label=3
     # label: 1, 2, 3, 4, 5, 10
     dropdown = self.driver.find_element(By.ID, "quantity")
     dropdown.find_element(By.XPATH, "//option[. = '3']").click()
-    # 6 | click | css=#quantity > option:nth-child(3) |
+    #  | click | css=#quantity > option:nth-child(3) |
     n = random.randint(0, 5)
     if n == 0:
       n = 10
     self.driver.find_element(By.CSS_SELECTOR, "#quantity > option:nth-child({})".format(n)).click()
-    # 7 | click | css=.btn | 
+    #  | click | css=.btn |
     self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
-    # 8 | click | css=.btn-info:nth-child(1) | 
-    self.driver.find_element(By.CSS_SELECTOR, ".btn-info:nth-child(1)").click()
-    # 9 | click | css=.btn | 
-    self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
+
+    # continue or emtpy chop car
+    n = random.randint(1, 3)
+    if n == 1 and times < 5:
+      self.driver.find_element(By.CSS_SELECTOR, ".btn-secondary").click()  # empty the shop car
+      self.make_order(times+1)
+    elif n == 2 and times < 5:
+      self.driver.find_element(By.CSS_SELECTOR, ".btn:nth-child(2)").click()  # continue
+      self.make_order(times+1)
+    else:
+      #  | click | css=.btn-info:nth-child(1) |
+      self.driver.find_element(By.CSS_SELECTOR, ".btn-info:nth-child(1)").click()  # pay order
+
+    #  | click | css=.btn |
+    self.driver.find_element(By.CSS_SELECTOR, ".btn").click()  # keep watching
+    if times < 5:
+      self.make_order(times+1)
+
+  def test_google_random_pick(self):
+    # Test name: google
+    # Step # | name | target | value
+    #  | open | http://localhost:8080/ |
+    self.driver.get("http://localhost:8080/")
+    #  | setWindowSize | 1918x823 |
+    self.driver.set_window_size(1918, 823)
+
+    self.make_order(1)
+
+
+
+
   
