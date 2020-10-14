@@ -11,6 +11,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+
 class TestGoogle():
   def setup_method(self, method=None):
     self.driver = webdriver.Firefox()
@@ -36,8 +37,11 @@ class TestGoogle():
     # label: 1, 2, 3, 4, 5, 10
     dropdown = self.driver.find_element(By.ID, "quantity")
     dropdown.find_element(By.XPATH, "//option[. = '3']").click()
-    # 6 | click | css=#quantity > option:nth-child(3) | 
-    self.driver.find_element(By.CSS_SELECTOR, "#quantity > option:nth-child(3)").click()
+    # 6 | click | css=#quantity > option:nth-child(3) |
+    n = random.randint(0, 5)
+    if n == 0:
+      n = 10
+    self.driver.find_element(By.CSS_SELECTOR, "#quantity > option:nth-child({})".format(n)).click()
     # 7 | click | css=.btn | 
     self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
     # 8 | click | css=.btn-info:nth-child(1) | 
