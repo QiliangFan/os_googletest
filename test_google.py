@@ -38,6 +38,8 @@ class TestGoogle():
     self.driver.find_element(By.CSS_SELECTOR, ".btn").click()
 
     # continue or emtpy chop car
+
+
     n = random.randint(1, 3)
     if n == 1 and times < 5:
       self.driver.find_element(By.CSS_SELECTOR, ".btn-secondary").click()  # empty the shop car
@@ -49,8 +51,9 @@ class TestGoogle():
       #  | click | css=.btn-info:nth-child(1) |
       self.driver.find_element(By.CSS_SELECTOR, ".btn-info:nth-child(1)").click()  # pay order
 
-    #  | click | css=.btn |
-    self.driver.find_element(By.CSS_SELECTOR, ".btn").click()  # keep watching
+      #  | click | css=.btn |
+      self.driver.find_element(By.CSS_SELECTOR, ".btn").click()  # keep watching
+
     if times < 5:
       self.make_order(times+1)
 
