@@ -13,6 +13,9 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 class TestGoogle():
+  def __init__(self):
+    self.times = 0
+
   def setup_method(self, method=None):
     self.driver = webdriver.Firefox()
     self.vars = {}
@@ -20,7 +23,7 @@ class TestGoogle():
   def teardown_method(self, method=None):
     self.driver.quit()
 
-  def make_order(self, times):
+  def make_order(self):
     #  | click | css=.col-md-4:nth-child(4) .card-hover |
     # total number: 9
     n = random.randint(1, 9)
@@ -39,14 +42,15 @@ class TestGoogle():
 
     # continue or emtpy chop car
 
-
     n = random.randint(1, 3)
-    if n == 1 and times < 5:
+    if n == 1 and self.times < 5:
       self.driver.find_element(By.CSS_SELECTOR, ".btn-secondary").click()  # empty the shop car
-      self.make_order(times+1)
-    elif n == 2 and times < 5:
+      self.times += 1
+      self.make_order()
+    elif n == 2 and self.times < 5:
       self.driver.find_element(By.CSS_SELECTOR, ".btn:nth-child(2)").click()  # continue
-      self.make_order(times+1)
+      self.times += 1
+      self.make_order()
     else:
       #  | click | css=.btn-info:nth-child(1) |
       self.driver.find_element(By.CSS_SELECTOR, ".btn-info:nth-child(1)").click()  # pay order
@@ -54,8 +58,9 @@ class TestGoogle():
       #  | click | css=.btn |
       self.driver.find_element(By.CSS_SELECTOR, ".btn").click()  # keep watching
 
-    if times < 5:
-      self.make_order(times+1)
+    if self.times < 5:
+      self.times += 1
+      self.make_order()
 
   def test_google_random_pick(self):
     # Test name: google
