@@ -10,3 +10,7 @@
 >Web driver's version may be compatible with the version of browsers. (located in directory [webdriver/](./webdriver/))
 >
 >The module needed by ptyhon3 interpreter is writen into [requirements.txt](./requirements.txt)
+
+# load_generator
+
+官方给出的用户模拟脚本，使用locust来模拟随机用户
